@@ -1,0 +1,23 @@
+These patches allow CM9 to run on LGE/p500 with msm7x27 chipset.
+
+
+##  0001-Build-libgenlock-and-libgralloc-for-msm7x27.patch
+##
+##  Fixes gralloc and genlock on new Adreno libs.
+##  Apply to hardware/qcom/display
+
+
+##  0001-p500-force-enable-surface-dithering.patch
+##
+##  Forces dithering to fix the colour banding
+##  Apply to frameworks/base
+
+##  http://review.cyanogenmod.com/#change,13394
+##
+##  Reorganise latest ringtones and notification sounds
+##  Apply to frameworks/base
+
+##  http://review.cyanogenmod.com/#change,13333
+##
+##  Include essential ringtones and other media
+## Apply to vendor/cm

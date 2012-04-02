@@ -1,0 +1,54 @@
+From 2b61d518c62b8076356b47b215ae78f5dba6fb54 Mon Sep 17 00:00:00 2001
+From: Adam Farden <adam@farden.cz>
+Date: Tue, 27 Mar 2012 23:15:35 +0200
+Subject: [PATCH] p500: force enable surface dithering
+
+Change-Id: I7706e485aa9e1a9201c7e29b7918e0617bf01be2
+---
+ services/surfaceflinger/Layer.cpp          |    2 +-
+ services/surfaceflinger/LayerBase.h        |    2 +-
+ services/surfaceflinger/SurfaceFlinger.cpp |    2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/services/surfaceflinger/Layer.cpp b/services/surfaceflinger/Layer.cpp
+index 045a9d4..aea2a02 100644
+--- a/services/surfaceflinger/Layer.cpp
++++ b/services/surfaceflinger/Layer.cpp
+@@ -61,7 +61,7 @@ Layer::Layer(SurfaceFlinger* flinger,
+         mFormat(PIXEL_FORMAT_NONE),
+         mGLExtensions(GLExtensions::getInstance()),
+         mOpaqueLayer(true),
+-        mNeedsDithering(false),
++        mNeedsDithering(true),
+         mSecure(false),
+ #ifdef QCOM_HARDWARE
+         mLayerQcomFlags(0),
+diff --git a/services/surfaceflinger/LayerBase.h b/services/surfaceflinger/LayerBase.h
+index ee726f4..da8defa 100644
+--- a/services/surfaceflinger/LayerBase.h
++++ b/services/surfaceflinger/LayerBase.h
+@@ -189,7 +189,7 @@ public:
+     /**
+      * needsDithering - true if this surface needs dithering
+      */
+-    virtual bool needsDithering() const { return false; }
++    virtual bool needsDithering() const { return true; }
+ 
+     /**
+      * needsLinearFiltering - true if this surface's state requires filtering
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 5623776..1c71a2a 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -277,7 +277,7 @@ status_t SurfaceFlinger::readyToRun()
+     glEnableClientState(GL_VERTEX_ARRAY);
+     glEnable(GL_SCISSOR_TEST);
+     glShadeModel(GL_FLAT);
+-    glDisable(GL_DITHER);
++    glEnable(GL_DITHER);
+     glDisable(GL_CULL_FACE);
+ 
+     const uint16_t g0 = pack565(0x0F,0x1F,0x0F);
+-- 
+1.7.5.4
+
